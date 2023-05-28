@@ -1,0 +1,15 @@
+Terminal e paste korar jonno keyboard shorcut  Ctrl + Shift + C
+Install command:
+sudo apt install unzip build-essential firefox -y
+Going to download command:
+cd ~/Downloads
+Unzip command:
+unzip OS.zip
+Going to assignment folder command:
+cd ~/Downloads/OS/assignment/
+Search file command:
+gcc search_file.c && ./a.out $(pwd)/search test.txt
+Delete folder command:
+gcc delete_folder.c && ./a.out $(pwd)/delete
+Sort numbers command:
+gcc sort.c && ./a.out
