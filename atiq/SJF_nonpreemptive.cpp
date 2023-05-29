@@ -91,10 +91,10 @@ int main()
     for (int i = 0; i < n; i++)
     {
         printf("Process %d\n", i + 1);
-        printf("Burst Time: ");
-        scanf("%d", &burst_time[i]);
         printf("Arrival Time: ");
         scanf("%d", &arrival_time[i]);
+        printf("Burst Time: ");
+        scanf("%d", &burst_time[i]);
     }
 
     calculateAverageTime(n, burst_time, arrival_time); // Calculate average

@@ -1,3 +1,4 @@
+// all okey
 #include <stdio.h>
 
 void calculateWaitingTime(int n, int bt[], int pri[], int wt[], int at[])
@@ -93,12 +94,12 @@ int main()
     for (int i = 0; i < n; i++)
     {
         printf("Process %d\n", i + 1);
+        printf("Arrival Time: ");
+        scanf("%d", &arrival_time[i]);
         printf("Burst Time: ");
         scanf("%d", &burst_time[i]);
         printf("Priority: ");
         scanf("%d", &priority[i]);
-        printf("Arrival Time: ");
-        scanf("%d", &arrival_time[i]);
     }
 
     calculateAverageTime(n, burst_time, priority, arrival_time); // Calculate average waiting time and average turnaround time

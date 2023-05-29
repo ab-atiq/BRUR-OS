@@ -24,8 +24,8 @@ int main()
         }
         else
         {
-            star[i] = finish[i - 1];  // last process CT
-            wt[i] = star[i] - arr[i]; 
+            star[i] = finish[i - 1]; // last process CT
+            wt[i] = star[i] - arr[i];
             finish[i] = star[i] + bur[i];
             tat[i] = finish[i] - arr[i];
         }
@@ -42,3 +42,16 @@ int main()
     getch();
     return 0;
 }
+/*
+Enter the number of processes:3
+Enter the Process Name, Arrival Time & Burst Time:p1 2 3
+Enter the Process Name, Arrival Time & Burst Time:p2 5 6
+Enter the Process Name, Arrival Time & Burst Time:p3 6 7
+
+PName   Arrtime         Burtime         Start   TAT     Finish  Waiting Time
+p1           2               3               2       3       5       0
+p2           5               6               5       6      11       0
+p3           6               7              11      12      18       5
+Average Waiting time:1.666667
+Average Turn Around Time:7.000000
+*/

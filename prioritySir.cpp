@@ -24,12 +24,15 @@ int main()
                 temp = p[i];
                 p[i] = p[j];
                 p[j] = temp;
+
                 temp = at[i];
                 at[i] = at[j];
                 at[j] = temp;
+
                 temp = et[i];
                 et[i] = et[j];
                 et[j] = temp;
+                
                 strcpy(t, pn[i]);
                 strcpy(pn[i], pn[j]);
                 strcpy(pn[j], t);
@@ -64,3 +67,18 @@ int main()
     getch();
     return 0;
 }
+/*  
+
+Enter the number of process:3
+Enter process name,arrivaltime,execution time & priority:p1 2 3 1
+Enter process name,arrivaltime,execution time & priority:p2 4 5 2
+Enter process name,arrivaltime,execution time & priority:p3 5 6 3
+
+Pname   arrivaltime     executiontime   priority        waitingtime     tatime
+p1          2               3               1               0               3
+p2          4               5               2               1               6
+p3          5               6               3               5              11
+Average waiting time is:2.000000
+Average turnaroundtime is:6.666667
+
+*/

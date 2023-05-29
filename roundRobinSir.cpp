@@ -41,3 +41,23 @@ int main()
     getch();
     return 0;
 }
+
+/*  
+Enter the no of processes:2
+Enter the time quantum:3
+enter process name & estimated time:p1 12
+enter process name & estimated time:p2 15
+The processes are:process 1: p1
+process 2: p2
+
+ p1 -> 3
+ p2 -> 3
+ p1 -> 3
+ p2 -> 3
+ p1 -> 3
+ p2 -> 3
+ p1 -> 3
+ p2 -> 3
+ p2 -> 3
+ Total Estimated Time:27
+*/

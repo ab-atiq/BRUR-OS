@@ -1,3 +1,4 @@
+// okey without AT
 #include <stdio.h>
 
 void calculateWaitingTime(int n, int bt[], int wt[], int quantum)

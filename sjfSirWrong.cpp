@@ -1,3 +1,4 @@
+// only for sir code
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
@@ -16,6 +17,7 @@ int main()
         // flushall();
         scanf("%s%d%d", pn[i], &at[i], &et[i]);
     }
+    // sort
     for (i = 0; i < n; i++)
         for (j = 0; j < n; j++)
         {
@@ -24,9 +26,11 @@ int main()
                 temp = at[i];
                 at[i] = at[j];
                 at[j] = temp;
+
                 temp = et[i];
                 et[i] = et[j];
                 et[j] = temp;
+
                 strcpy(t, pn[i]);
                 strcpy(pn[i], pn[j]);
                 strcpy(pn[j], t);
@@ -54,3 +58,16 @@ int main()
     getch();
     return 0;
 }
+/*
+Enter the number of process:3
+Enter process name, arrival time & execution time:p1 4 6
+Enter process name, arrival time & execution time:p2 5 15
+Enter process name, arrival time & execution time:p3 6 11
+
+Pname   arrivaltime     executiontime   waitingtime     tatime
+p1          4               6               0               6
+p3          6              11               4              15
+p2          5              15              16              31
+Average waiting time is:6.666667
+Average turnaroundtime is:17.333334
+*/

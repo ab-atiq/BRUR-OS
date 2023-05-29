@@ -1,100 +1,157 @@
+// #include <stdio.h>
+// #include <stdbool.h>
+// #include <limits.h>
+// void sjf_preemptive(int pid[], int arrival_time[], int burst_time[], int n)
+// {
+//     int remaining_time[n];
+//     for (int i = 0; i < n; i++)
+//     {
+//         remaining_time[i] = burst_time[i];
+//     }
+
+//     int completed = 0;
+//     int current_time = 0;
+
+//     while (completed != n)
+//     {
+//         int shortest_job = -1;
+//         int shortest_burst = INT_MAX;
+
+//         for (int i = 0; i < n; i++)
+//         {
+//             if (arrival_time[i] <= current_time && remaining_time[i] < shortest_burst && remaining_time[i] > 0)
+//             {
+//                 shortest_job = i;
+//                 shortest_burst = remaining_time[i];
+//             }
+//         }
+
+//         if (shortest_job == -1)
+//         {
+//             current_time++;
+//             continue;
+//         }
+
+//         remaining_time[shortest_job]--;
+
+//         if (remaining_time[shortest_job] == 0)
+//         {
+//             completed++;
+//             int completion_time = current_time + 1;
+//             int waiting_time = completion_time - arrival_time[shortest_job] - burst_time[shortest_job];
+//             int turnaround_time = completion_time - arrival_time[shortest_job];
+
+//             printf("Process %d:\n", pid[shortest_job]);
+//             printf("Completion Time: %d\n", completion_time);
+//             printf("Waiting Time: %d\n", waiting_time);
+//             printf("Turnaround Time: %d\n\n", turnaround_time);
+//         }
+
+//         current_time++;
+//     }
+// }
+
+// int main()
+// {
+//     // int pid[] = {1, 2, 3, 4, 5};
+//     // int arrival_time[] = {0, 2, 4, 6, 8};
+//     // int burst_time[] = {3, 6, 4, 5, 2};
+
+//     // my code
+//     int pid[] = {1, 2, 3, 4, 5};
+//     int arrival_time[] = {0, 2, 4, 5, 3};
+//     int burst_time[] = {7, 4, 1, 4, 5};
+
+//     int n = sizeof(pid) / sizeof(pid[0]);
+
+//     sjf_preemptive(pid, arrival_time, burst_time, n);
+
+//     return 0;
+// }
+
+// avarage waiting time and turn around time
 #include <stdio.h>
 #include <stdbool.h>
-
-void calculateWaitingTime(int n, int bt[], int at[], int wt[])
+#include <limits.h>
+void sjf_preemptive(int pid[], int arrival_time[], int burst_time[], int n, int waiting_time[], int turnaround_time[])
 {
-    int rt[n]; // Remaining time
-
-    // Initialize remaining time and waiting time arrays
+    int remaining_time[n];
     for (int i = 0; i < n; i++)
     {
-        rt[i] = bt[i];
-        wt[i] = 0;
+        remaining_time[i] = burst_time[i];
     }
 
-    int complete = 0; // Number of completed processes
-    int time = 0;     // Current time
-    int shortest = 0; // Index of the process with the shortest remaining time
+    int completed = 0;
+    int current_time = 0;
 
-    while (complete != n)
+    while (completed != n)
     {
-        // Find the process with the shortest remaining time among the arrived processes
-        shortest = -1;
+        int shortest_job = -1;
+        int shortest_burst = INT_MAX;
+
         for (int i = 0; i < n; i++)
         {
-            if (at[i] <= time && (shortest == -1 || rt[i] < rt[shortest]))
+            if (arrival_time[i] <= current_time && remaining_time[i] < shortest_burst && remaining_time[i] > 0)
             {
-                shortest = i;
+                shortest_job = i;
+                shortest_burst = remaining_time[i];
             }
         }
 
-        // Update remaining time and waiting time for the selected process
-        rt[shortest]--;
-        time++;
-
-        // If the selected process is completed
-        if (rt[shortest] == 0)
+        if (shortest_job == -1)
         {
-            complete++;
-            wt[shortest] = time - at[shortest] - bt[shortest];
+            current_time++;
+            continue;
         }
+
+        remaining_time[shortest_job]--;
+
+        if (remaining_time[shortest_job] == 0)
+        {
+            completed++;
+            int completion_time = current_time + 1;
+            waiting_time[shortest_job] = completion_time - arrival_time[shortest_job] - burst_time[shortest_job];
+            turnaround_time[shortest_job] = completion_time - arrival_time[shortest_job];
+        }
+
+        current_time++;
     }
 }
 
-void calculateTurnaroundTime(int n, int bt[], int wt[], int tat[])
+float calculate_average(int times[], int n)
 {
-    // Calculate turnaround time for each process
+    int total = 0;
     for (int i = 0; i < n; i++)
     {
-        tat[i] = bt[i] + wt[i];
-    }
-}
-
-void calculateAverageTime(int n, int bt[], int at[])
-{
-    int wt[n], tat[n], total_wt = 0, total_tat = 0;
-
-    calculateWaitingTime(n, bt, at, wt);     // Calculate waiting time
-    calculateTurnaroundTime(n, bt, wt, tat); // Calculate turnaround time
-
-    printf("Process\tBurst Time\tArrival Time\tWaiting Time\tTurnaround Time\n");
-
-    // Calculate total waiting time and total turnaround time
-    for (int i = 0; i < n; i++)
-    {
-        total_wt += wt[i];
-        total_tat += tat[i];
-        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\n", i + 1, bt[i], at[i], wt[i], tat[i]);
+        total += times[i];
     }
 
-    // Calculate average waiting time and average turnaround time
-    float avg_wt = (float)total_wt / n;
-    float avg_tat = (float)total_tat / n;
-
-    printf("\nAverage Waiting Time: %.2f", avg_wt);
-    printf("\nAverage Turnaround Time: %.2f", avg_tat);
+    float average = (float)total / n;
+    return average;
 }
 
 int main()
 {
-    int n; // Number of processes
-    printf("Enter the number of processes: ");
-    scanf("%d", &n);
+    // int pid[] = {1, 2, 3, 4, 5};
+    // int arrival_time[] = {0, 2, 4, 6, 8};
+    // int burst_time[] = {3, 6, 4, 5, 2};
+    // my code
+    int pid[] = {1, 2, 3, 4, 5};
+    int arrival_time[] = {0, 2, 4, 5, 3};
+    int burst_time[] = {7, 4, 1, 4, 5};
 
-    int burst_time[n];   // Burst time of each process
-    int arrival_time[n]; // Arrival time of each process
+    int n = sizeof(pid) / sizeof(pid[0]);
 
-    printf("Enter burst time and arrival time for each process:\n");
-    for (int i = 0; i < n; i++)
-    {
-        printf("Process %d\n", i + 1);
-        printf("Burst Time: ");
-        scanf("%d", &burst_time[i]);
-        printf("Arrival Time: ");
-        scanf("%d", &arrival_time[i]);
-    }
+    int waiting_time[n];
+    int turnaround_time[n];
 
-    calculateAverageTime(n, burst_time, arrival_time); // Calculate average waiting time and average turnaround time
+    sjf_preemptive(pid, arrival_time, burst_time, n, waiting_time, turnaround_time);
+
+    float average_waiting_time = calculate_average(waiting_time, n);
+    float average_turnaround_time = calculate_average(turnaround_time, n);
+
+    printf("Average Waiting Time: %.2f\n", average_waiting_time);
+    printf("Average Turnaround Time: %.2f\n", average_turnaround_time);
 
     return 0;
 }

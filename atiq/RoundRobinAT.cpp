@@ -99,3 +99,79 @@ int main()
 
     calculateAverageTime(n, burst_time, quantum, arrival_time); // Calculate average waiting time and average turnaround
 }
+
+// #include <stdio.h>
+
+// void round_robin(int pid[], int arrival_time[], int burst_time[], int n, int time_quantum, int waiting_time[], int turnaround_time[])
+// {
+//     int remaining_time[n];
+//     for (int i = 0; i < n; i++)
+//     {
+//         remaining_time[i] = burst_time[i];
+//     }
+
+//     int current_time = 0;
+//     int completed = 0;
+
+//     while (completed != n)
+//     {
+//         for (int i = 0; i < n; i++)
+//         {
+//             if (arrival_time[i] <= current_time && remaining_time[i] > 0)
+//             {
+//                 if (remaining_time[i] <= time_quantum)
+//                 {
+//                     current_time += remaining_time[i];
+//                     remaining_time[i] = 0;
+//                     waiting_time[i] = current_time - burst_time[i] - arrival_time[i];
+//                     turnaround_time[i] = current_time - arrival_time[i];
+
+//                     completed++;
+//                 }
+//                 else
+//                 {
+//                     current_time += time_quantum;
+//                     remaining_time[i] -= time_quantum;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// float calculate_average(int times[], int n)
+// {
+//     int total = 0;
+//     for (int i = 0; i < n; i++)
+//     {
+//         total += times[i];
+//     }
+
+//     float average = (float)total / n;
+//     return average;
+// }
+
+// int main()
+// {
+//     int pid[] = {1, 2, 3, 4};
+//     int arrival_time[] = {0, 2, 4, 5};
+//     int burst_time[] = {5, 4, 1, 6};
+//     // int pid[] = {1, 2, 3, 4, 5};
+//     // int arrival_time[] = {0, 1, 2, 3, 4};
+//     // int burst_time[] = {6, 3, 5, 1, 4};
+
+//     int n = sizeof(pid) / sizeof(pid[0]);
+//     int time_quantum = 2;
+
+//     int waiting_time[n];
+//     int turnaround_time[n];
+
+//     round_robin(pid, arrival_time, burst_time, n, time_quantum, waiting_time, turnaround_time);
+
+//     float average_waiting_time = calculate_average(waiting_time, n);
+//     float average_turnaround_time = calculate_average(turnaround_time, n);
+
+//     printf("Average Waiting Time: %.2f\n", average_waiting_time);
+//     printf("Average Turnaround Time: %.2f\n", average_turnaround_time);
+
+//     return 0;
+// }
